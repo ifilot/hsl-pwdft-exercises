@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 
+#
+# EXERCISE 1
+#
+
 import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 def main():
     npts = 64 # number of data points per cartesian direction
@@ -9,6 +15,23 @@ def main():
     # load datasets
     mo5 = np.load('../data/mo5.npy').reshape(npts, npts, npts)
     mo6 = np.load('../data/mo6.npy').reshape(npts, npts, npts)
+    
+    # visualize the two molecular orbitals
+    fig, ax = plt.subplots(1, 2, dpi=144)
+    im1 = ax[0].imshow(mo5[:, npts//2, :], origin='lower', extent=(0,10,0,10))
+    im2 = ax[1].imshow(mo6[:, :, npts//2], origin='lower', extent=(0,10,0,10))
+    
+    divider = make_axes_locatable(ax[0])
+    cax = divider.append_axes('right', size='5%', pad=0.05)
+    fig.colorbar(im1, cax=cax, orientation='vertical')
+    
+    divider = make_axes_locatable(ax[1])
+    cax = divider.append_axes('right', size='5%', pad=0.05)
+    fig.colorbar(im2, cax=cax, orientation='vertical')
+    
+    plt.tight_layout()
+    
+    ###########################################################################
     
     # show that the two molecular orbitals are normalized in real-space
     S55 = np.sum(np.power(mo5,2)) * (sz / npts)**3
@@ -19,6 +42,8 @@ def main():
     # show that the two molecular orbitals are orthonormal in real-space
     S56 = np.sum(mo5 * mo6) * (sz / npts)**3
     print('<5|6> = %f' % S56)
+    
+    ###########################################################################
     
     # perform FFT transform
     ct = np.sqrt(sz**3) / npts**3

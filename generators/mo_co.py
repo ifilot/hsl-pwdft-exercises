@@ -17,8 +17,8 @@ def main():
     mo6 = plot_wavefunction(res['cgfs'], res['orbc'][:,5])
     
     # store the wave functions
-    np.save('mo5.npy', mo5)
-    np.save('mo6.npy', mo6)
+    np.save('../data/mo5.npy', mo5)
+    np.save('../data/mo6.npy', mo6)
     
     # calculate the kinetic energy
     Ekin5 = res['orbc'][:,4] @ res['kinetic'] @ res['orbc'][:,4]
@@ -35,7 +35,7 @@ def plot_wavefunction(cgfs, coeff):
     grid = integrator.build_rectgrid3d(-5, 5, sz)
     res = integrator.plot_wavefunction(grid, coeff, cgfs)
 
-    return res
+    return res.reshape(sz,sz,sz)
 
 if __name__ == '__main__':
     main()
