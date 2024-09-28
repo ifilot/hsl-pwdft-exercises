@@ -7,6 +7,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+import time
 
 def main():
     sz = 10   # size of the cubic unit cell
@@ -18,8 +19,35 @@ def main():
     ])
     atomchg = np.array([8,6])
     
-    Eewald = calculate_ewald_sum(unitcell, atompos, atomchg, sz)
-    print(Eewald)
+    Eewald, _, _ = calculate_ewald_sum(unitcell, atompos, atomchg, sz, gcut=2)
+    
+    ###########################################################################
+    Gvals = np.linspace(0.5, 6, 50)
+    nrsamples = 20
+    Nc = []
+    Mc = []
+    Tc = []
+    for gcut in Gvals:
+        t = time.process_time()
+        for i in range(nrsamples): # number of times to get some statistics
+            _, N, M = calculate_ewald_sum(unitcell, atompos, atomchg, sz, gcut=gcut)
+        ptime = time.process_time() - t
+        Tc.append(ptime / nrsamples)
+        Nc.append(N)
+        Mc.append(M)
+        
+    fig, ax = plt.subplots(2, 1, dpi=144)
+    ax[0].plot(Gvals, np.prod(Nc, axis=1), 'o--', label='Number of unit cells')
+    ax[0].plot(Gvals, np.prod(Mc, axis=1), '^--', label='Number of plane waves')
+    ax[1].plot(Gvals, Tc, 'o--')
+    
+    # layout
+    ax[0].legend()
+    ax[0].set_xlabel(r'$E_{\text{cut}}$ [Ht]')
+    ax[0].set_ylabel(r'Amount [-]')
+    ax[1].set_xlabel(r'$E_{\text{cut}}$ [Ht]')
+    ax[1].set_ylabel(r'Computational time [s]')
+    plt.tight_layout()
     
 def calculate_ewald_sum(unitcell, atompos, atomchg, sz, gcut=2, gamma=1e-8):
     """
@@ -70,7 +98,7 @@ def calculate_ewald_sum(unitcell, atompos, atomchg, sz, gcut=2, gamma=1e-8):
     
     Eewald = Elr + Esr - Eself - Een
 
-    return Eewald
+    return Eewald, Nmax, s
 
 def build_indexed_vectors_excluding_zero(s):
     """
