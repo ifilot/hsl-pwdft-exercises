@@ -4,11 +4,11 @@
 # Generate the 1pi molecular orbitals of CO at the HF/sto3g level of theory
 #
 
-from pyqint import PyQInt, HF, MoleculeBuilder
+from pypwdft import PyQInt, HF, MoleculeBuilder
 import numpy as np
 
 def main():
-    mol = MoleculeBuilder().from_name('CO')
+    mol = MoleculeBuilder().from_name('CH4')
     res = HF().rhf(mol, 'sto3g')
     
     # construct the wave functions in a cubic unit cell of 10x10x10 with
@@ -25,10 +25,6 @@ def main():
     Ekin6 = res['orbc'][:,5] @ res['kinetic'] @ res['orbc'][:,5]
     print(Ekin5)
     print(Ekin6)
-    
-    mol = MoleculeBuilder().from_name('CO')
-    res = HF().rhf(mol, 'p631')
-    np.save('../data/co_fock.npy', res['fock'])
 
 def plot_wavefunction(cgfs, coeff):
     # build integrator
