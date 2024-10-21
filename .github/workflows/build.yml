@@ -28,11 +28,11 @@ jobs:
       - name: Run solutions
         run: |
           cd solutions
-          python ex01.py && "PASS" || { echo "FAIL"; false; }
-          python ex02.py && "PASS" || { echo "FAIL"; false; }
-          python ex03.py && "PASS" || { echo "FAIL"; false; }
-          python ex04.py && "PASS" || { echo "FAIL"; false; }
-          python ex05.py && "PASS" || { echo "FAIL"; false; }
-          python ex06.py && "PASS" || { echo "FAIL"; false; }
-          python ex07.py && "PASS" || { echo "FAIL"; false; }
-          python ex08.py && "PASS" || { echo "FAIL"; false; }
+          python ex01.py && echo "PASS" || { echo "FAIL"; false; }
+          python ex02.py && echo "PASS" || { echo "FAIL"; false; }
+          python ex03.py && echo "PASS" || { echo "FAIL"; false; }
+          python ex04.py && echo "PASS" || { echo "FAIL"; false; }
+          python ex05.py && echo "PASS" || { echo "FAIL"; false; }
+          python ex06.py && echo "PASS" || { echo "FAIL"; false; }
+          python ex07.py && echo "PASS" || { echo "FAIL"; false; }
+          python ex08.py && echo "PASS" || { echo "FAIL"; false; }
