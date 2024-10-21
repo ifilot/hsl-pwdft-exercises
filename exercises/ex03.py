@@ -14,36 +14,7 @@ def main():
     # create scalar field
     psi = build_gaussian_scalarfield(sz, npts)
     
-    # test real-space normalization
-    S = (sz / npts)** 3 * np.sum(np.power(psi,2))
-    print('<psi|psi> = %f' % S)
-    
-    ###########################################################################
-    
-    # construct the electron density in reciprocal space
-    rho = np.power(psi,2)
-    fft_rho = np.fft.fftn(rho)
-    
-    ###########################################################################
-    
-    # build fft vectors
-    kvec, k2 = build_fft_vectors(sz, npts)
-    
-    # build the Hartree potential in reciprocal space
-    with np.errstate(divide='ignore', invalid='ignore'):
-        fft_hartree = 4.0 * np.pi * fft_rho / k2
-        fft_hartree[~np.isfinite(fft_hartree)] = 0.0
-    
-    ###########################################################################
-    
-    # perform inverse FFT
-    hartree = np.fft.ifftn(fft_hartree)
-    
-    ###########################################################################
-    
-    # calculate electron-electron repulsion energy in real-space
-    Eee = np.einsum('ijk,ijk', hartree, rho) * (sz / npts)** 3
-    print('Eee = %f (%f)' % (Eee.real, 2 / np.sqrt(np.pi)))
+    # START WORKING HERE
     
 def build_gaussian_scalarfield(sz, npts):
     """

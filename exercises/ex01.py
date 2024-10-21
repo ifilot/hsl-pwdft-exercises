@@ -16,5 +16,7 @@ def main():
     mo5 = np.load('../data/mo5.npy').reshape(npts, npts, npts)
     mo6 = np.load('../data/mo6.npy').reshape(npts, npts, npts)
     
+    # START WORKING HERE
+    
 if __name__ == '__main__':
     main()

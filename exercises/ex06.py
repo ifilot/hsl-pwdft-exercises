@@ -29,51 +29,7 @@ def main():
     # grab molecular orbitals
     orbs_fft = np.load('../data/ch4_orbs.npy')
         
-    # calculate plane-wave vectors
-    k, k2 = build_fft_vectors(sz, npts)
-    
-    # calculate kinetic energy
-    Ekin = np.einsum('lijk,ijk,lijk', orbs_fft, k2, orbs_fft.conjugate()).real
-    
-    # construct electorn density
-    orbs = np.zeros_like(orbs_fft)
-    Ct = npts**3 / np.sqrt(sz**3)
-    for i in range(len(orbs)):
-        orbs[i,:,:,:] = np.fft.ifftn(orbs_fft[i,:,:,:]) * Ct
-    rho = 2.0 * np.einsum('lijk,lijk->ijk', orbs, orbs.conjugate()).real
-    nelec = np.sum(rho) * deltaV
-    
-    # check that the number of electrons is sensible
-    print('Number of electrons: %f' % nelec)
-    
-    # construct Hartree potential and calculate electron-electron repulsion
-    fft_rho = np.fft.fftn(rho)
-    with np.errstate(divide='ignore', invalid='ignore'):
-        fft_hartree = 4.0 * np.pi * fft_rho / k2
-        fft_hartree[~np.isfinite(fft_hartree)] = 0.0
-    hartree = np.fft.ifftn(fft_hartree)
-    Erep = 0.5 * np.sum(hartree * rho).real * deltaV
-    
-    # calculate nuclear attraction
-    vpot = calculate_vpot(unitcell, atompos, atomchg, k, k2, Omega)
-    Enuc = np.sum(vpot * rho).real * deltaV
-    
-    # calculate exchange-correlation
-    Ex = np.sum(lda_x(rho)[0] * rho) * deltaV
-    Ec = np.sum(lda_c_vwn(rho)[0] * rho) * deltaV
-    Exc = Ex + Ec
-    
-    print('Ekin = %6.4f' % Ekin)
-    print('Erep = %6.4f' % Erep)
-    print('Enuc = %6.4f' % Enuc)
-    print('Exc = %6.4f' % Exc)
-    
-    # calculate Ewald sum
-    Eewald = calculate_ewald_sum(unitcell, atompos, atomchg, sz, gcut=2)
-    print('Eewald = %6.4f' % Eewald)
-    
-    Etot = Ekin + Erep + Enuc + Exc + Eewald
-    print('Total electronic energy: %6.4f' % Etot)
+    # START WORKING HERE
     
 def calculate_ewald_sum(unitcell, atompos, atomchg, sz, gcut=2, gamma=1e-8):
     """

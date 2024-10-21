@@ -31,31 +31,7 @@ def main():
        
     produce_plot(res, sz, npts)
     
-    ### TRANSFORMATION
-    
-    # calculate overlap matrix prior to transformation
-    S = calculate_overlap_matrix(res['orbc_rs'], sz, npts)
-    print('S = ', S)
-    
-    # calculate kinetic energies prior to transformation
-    print('Kinetic energies:')
-    for i in range(4):
-        print(calculate_kinetic_energy(res['orbc_fft'][i], sz, npts).real)
-    
-    # perform transformation
-    print('\nPerforming Transformation\n')
-    for i in range(4):
-        res['orbc_rs'][i] = optimize_real(res['orbc_rs'][i])
-        
-    # calculate overlap matrix after transformation
-    S = calculate_overlap_matrix(res['orbc_rs'], sz, npts)
-    print('S = ', S)
-    
-    # calculate kinetic energies after to transformation
-    print('Kinetic energies:')
-    Ct = np.sqrt(sz**3) / npts**3
-    for i in range(4):
-        print(calculate_kinetic_energy(np.fft.fftn(res['orbc_rs'][i]) * Ct, sz, npts).real)
+    # START WORKING HERE: IMPLEMENT THE TRANSFORMATION
     
     # reproduce plots after transformation
     produce_plot(res, sz, npts)
