@@ -1,0 +1,38 @@
+name: test
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+    tags:
+      - "v**"
+  release:
+    types:
+      - published
+
+jobs:
+  check:
+    name: Check version strings
+    runs-on: ubuntu-latest
+    container: python:3.11-slim-bullseye
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          pip install numpy scipy pypwdft pyfftw
+      - name: Run solutions
+        run: |
+          cd solutions
+          python ex01.py
+          python ex02.py
+          python ex03.py
+          python ex04.py
+          python ex05.py
+          python ex06.py
+          python ex07.py
+          python ex08.py
