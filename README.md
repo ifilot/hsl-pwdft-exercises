@@ -9,7 +9,23 @@ lecture on plane-wave density functional theory.
 * [Exercises PDF](https://github.com/ifilot/hsl-pwdft-exercises-latex/releases/latest/download/hsl-2024-pwdft-exercises.pdf)
 * [Lecture notes on plane-wave density functional theory](https://github.com/ifilot/pwdft-lecture-notes/releases/latest/download/pwdft-filot.pdf)
 
-> [!TIP]
-> If you want to see a fully working plane-wave density functional theory package,
-> with a focus on readability, consider having a look at
-> [PyPWDFT](https://pypwdft.imc-tue.nl/).
+## Dependencies
+
+These exercises require relatively few modules. A list is provided below:
+* NumPy
+* SciPy
+* pyFFTW
+* [PyPWDFT](https://pypwdft.imc-tue.nl/).
+
+### Anaconda installation
+
+```bash
+conda install numpy scipy pyfftw
+conda install -c ifilot pypwdft
+```
+
+### PyPI installation
+
+```bash
+pip install numpy scipy pyfftw pypwdft
+```

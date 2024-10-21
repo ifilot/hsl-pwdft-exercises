@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: |
-          pip install numpy scipy pypwdft pyfftw
+          pip install numpy scipy pypwdft pyfftw matplotlib
       - name: Run solutions
         run: |
           cd solutions
