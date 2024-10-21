@@ -1,8 +1,11 @@
 # Han-sur-Lesse Winterschool Lecture on Plane Wave Density Functional Theory
 
-This repository contains the set of practice exercises for the
-[Han-sur-Lesse Winterschool](https://www.han-sur-lesse-winterschool.nl/)
-lecture on plane-wave density functional theory.
+[![build](https://github.com/ifilot/hsl-pwdft-exercises/actions/workflows/build.yml/badge.svg)](https://github.com/ifilot/hsl-pwdft-exercises/actions/workflows/build.yml)
+
+This repository contains the set of practice exercises for the [Han-sur-Lesse
+Winterschool](https://www.han-sur-lesse-winterschool.nl/) lecture on plane-wave
+density functional theory. For the problem formulation and the lecture notes,
+head over to the downloads section below and download the required documents.
 
 ## Downloads
 
